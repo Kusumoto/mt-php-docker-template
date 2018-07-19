@@ -9,6 +9,7 @@ RUN apk update && \
     libjpeg-turbo-dev \
     libpng-dev && \
     apk add autoconf \ 
+    supervisor \
     tzdata && \
     pecl install -o -f mcrypt-1.0.1 && \
     pecl install -o -f imagick && \
