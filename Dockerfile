@@ -7,6 +7,7 @@ RUN apk update && \
     freetype-dev \
     build-base \
     libjpeg-turbo-dev \
+    icu-dev \
     libpng-dev && \
     apk add autoconf \ 
     supervisor \
@@ -22,6 +23,12 @@ RUN apk update && \
     docker-php-ext-install bcmath && \
     docker-php-ext-enable imagick && \
     docker-php-ext-install gd && \
+    docker-php-ext-install mbstring && \
+    docker-php-ext-install intl && \
+    docker-php-ext-install iconv && \
+    docker-php-ext-install bcmath && \
+    docker-php-ext-install bz2 && \
+    docker-php-ext-install opcache && \
     docker-php-ext-configure gd \
     --enable-gd-native-ttf \
     --with-jpeg-dir=/usr/lib \
