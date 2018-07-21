@@ -17,6 +17,7 @@ RUN apk update && \
     docker-php-ext-enable mcrypt && \
     docker-php-ext-install pcntl && \
     docker-php-ext-install zip && \
+    docker-php-ext-install calendar && \
     docker-php-ext-install pdo_mysql && \
     docker-php-ext-install bcmath && \
     docker-php-ext-enable imagick && \
