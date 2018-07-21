@@ -8,6 +8,7 @@ RUN apk update && \
     build-base \
     libjpeg-turbo-dev \
     icu-dev \
+    bzip2-dev \
     libpng-dev && \
     apk add autoconf \ 
     supervisor \
