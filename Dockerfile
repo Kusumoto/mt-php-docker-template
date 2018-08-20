@@ -42,7 +42,7 @@ RUN apk update && \
     curl -s http://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
-COPY docker-entrypoint.sh /var/www
+COPY docker-entrypoint.sh /
 
 ENV TZ Asia/Bangkok
 
@@ -50,6 +50,6 @@ EXPOSE 9000
 
 WORKDIR /var/www
 
-ENTRYPOINT [ "sh", "docker-entrypoint.sh" ]
+ENTRYPOINT [ "sh", "/docker-entrypoint.sh" ]
 
 CMD ["php-fpm"]
