@@ -1,3 +1,0 @@
-crond
-supervisord
-php-fpm
