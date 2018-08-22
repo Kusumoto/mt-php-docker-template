@@ -12,6 +12,7 @@ RUN apk update && \
     libpng-dev && \
     apk add autoconf \ 
     supervisor \
+    libtool \
     tzdata && \
     pecl install -o -f mcrypt-1.0.1 && \
     pecl install -o -f imagick && \
@@ -42,8 +43,19 @@ RUN apk update && \
     curl -s http://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
-RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+RUN rm /usr/bin/iconv \
+  && curl -SL http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz | tar -xz -C . \
+  && cd libiconv-1.14 \
+  && ./configure --prefix=/usr/local \
+  && curl -SL https://raw.githubusercontent.com/mxe/mxe/7e231efd245996b886b501dad780761205ecf376/src/libiconv-1-fixes.patch \
+  | patch -p1 -u  \
+  && make \
+  && make install \
+  && libtool --finish /usr/local/lib \
+  && cd .. \
+  && rm -rf libiconv-1.14
+
+ENV LD_PRELOAD /usr/local/lib/preloadable_libiconv.so
 
 COPY docker-entrypoint.sh /
 
