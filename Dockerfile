@@ -1,18 +1,16 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.2-fpm-stretch
 
-RUN apk update && \
-    apk add --no-cache --virtual .build-deps libxml2-dev \
+RUN apt-get update && \
+    apt-get install -y libxml2-dev \
     libmcrypt-dev \
-    imagemagick-dev \
-    freetype-dev \
-    build-base \
-    libjpeg-turbo-dev \
-    icu-dev \
-    bzip2-dev \
-    libpng-dev && \
-    apk add autoconf \ 
+    libmagickwand-dev \
+    libfreetype6-dev \
+    build-essential \
+    libjpeg62-turbo-dev \
+    libicu-dev \
+    libbz2-dev \
+    libpng-dev \
     supervisor \
-    libtool \
     tzdata && \
     pecl install -o -f mcrypt-1.0.1 && \
     pecl install -o -f imagick && \
@@ -41,21 +39,8 @@ RUN apk update && \
     apk del .build-deps && \
     rm -rf /var/cache/apk/* && \
     curl -s http://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer
-
-RUN rm /usr/bin/iconv \
-  && curl -SL http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz | tar -xz -C . \
-  && cd libiconv-1.14 \
-  && ./configure --prefix=/usr/local \
-  && curl -SL https://raw.githubusercontent.com/mxe/mxe/7e231efd245996b886b501dad780761205ecf376/src/libiconv-1-fixes.patch \
-  | patch -p1 -u  \
-  && make \
-  && make install \
-  && libtool --finish /usr/local/lib \
-  && cd .. \
-  && rm -rf libiconv-1.14
-
-ENV LD_PRELOAD /usr/local/lib/preloadable_libiconv.so
+    mv composer.phar /usr/local/bin/composer && \
+    apt-get autoremove -y build-essential
 
 COPY docker-entrypoint.sh /
 
