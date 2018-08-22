@@ -42,6 +42,9 @@ RUN apk update && \
     curl -s http://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
+RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
 COPY docker-entrypoint.sh /
 
 ENV TZ Asia/Bangkok
