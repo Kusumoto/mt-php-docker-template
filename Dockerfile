@@ -35,8 +35,6 @@ RUN apt-get update && \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 && \
     docker-php-ext-install gd && \
-    pecl install -o -f redis && \
-    docker-php-ext-enable redis && \
     curl -s http://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     apt-get autoremove -y build-essential
