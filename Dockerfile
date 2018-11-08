@@ -41,8 +41,6 @@ RUN apt-get update && \
 
 COPY docker-entrypoint.sh /
 
-ADD ./cacert.pem /usr/local/etc/php-fpm.d
-
 ENV TZ Asia/Bangkok
 
 EXPOSE 9000
