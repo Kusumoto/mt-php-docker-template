@@ -43,6 +43,8 @@ RUN apt-get update && \
 
 COPY docker-entrypoint.sh /
 
+COPY config/file_upload.ini /usr/local/etc/php/conf.d
+
 ENV TZ Asia/Bangkok
 
 EXPOSE 9000
