@@ -12,6 +12,8 @@ RUN apt-get update && \
     libpng-dev \
     supervisor \
     cron \
+    vim \
+    nano \
     tzdata && \
     pecl install -o -f mcrypt-1.0.1 && \
     pecl install -o -f imagick && \
