@@ -57,6 +57,8 @@ RUN rm /usr/bin/iconv \
 
 ENV LD_PRELOAD /usr/local/lib/preloadable_libiconv.so
 
+COPY config/file_upload.ini /usr/local/etc/php/conf.d
+
 COPY docker-entrypoint.sh /
 
 ENV TZ Asia/Bangkok
