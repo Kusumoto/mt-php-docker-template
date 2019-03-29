@@ -1,17 +1,19 @@
 FROM php:7.1.0-fpm
 
-RUN apk update && \
-    apk add --no-cache --virtual .build-deps libxml2-dev \
+RUN apt-get update && \
+    apt-get install -y libxml2-dev \
     libmcrypt-dev \
-    imagemagick-dev \
-    freetype-dev \
-    build-base \
-    libjpeg-turbo-dev \
-    icu-dev \
-    bzip2-dev \
-    libpng-dev && \
-    apk add autoconf \ 
+    libmagickwand-dev \
+    libfreetype6-dev \
+    build-essential \
+    libjpeg62-turbo-dev \
+    libicu-dev \
+    libbz2-dev \
+    libpng-dev \
     supervisor \
+    cron \
+    vim \
+    nano \
     tzdata && \
     pecl install -o -f mcrypt-1.0.1 && \
     pecl install -o -f imagick && \
@@ -35,12 +37,9 @@ RUN apk update && \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 && \
     docker-php-ext-install gd && \
-    pecl install -o -f redis \
-    docker-php-ext-enable redis \
-    apk del .build-deps && \
-    rm -rf /var/cache/apk/* && \
     curl -s http://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer
+    mv composer.phar /usr/local/bin/composer && \
+    apt-get autoremove -y build-essential
 
 ENV TZ Asia/Bangkok
 
