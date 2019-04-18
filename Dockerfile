@@ -1,5 +1,9 @@
 FROM php:7.1.0-fpm
 
+RUN echo "deb http://deb.debian.org/debian/ jessie main" > /etc/apt/sources.list
+RUN echo "deb-src http://deb.debian.org/debian/ jessie main" >> /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
+
 RUN apt-get update && \
     apt-get install -y libxml2-dev \
     libmcrypt-dev \
